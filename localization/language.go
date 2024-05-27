@@ -31,4 +31,8 @@ var MissingPhp = Red + "Php is missing; please redownload Hiddeneye." + Reset
 var BigOopsie = Red + "Multiple dependicies are missing; please redownload Hiddeneye."
 
 // MainRunner
-var PageList = Red + "{1} Google" + Reset
+var PageList = Red + "{1} Badoo" + Reset
+var PageChooser = Red + "Choose a site: " + Reset
+
+// Redirectererer
+var RedirectPage = Red + "Redirect Link: " + Reset
