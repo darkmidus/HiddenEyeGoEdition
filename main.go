@@ -9,11 +9,30 @@ import (
 	"strings"
 
 	cp "github.com/otiai10/copy"
+	"github.com/shirou/gopsutil/v3/process"
 )
 
 func main() {
 	prereqs()
 	mainRunner()
+	capturePage()
+}
+
+func KillProcess(name string) error {
+	processes, err := process.Processes()
+	if err != nil {
+		return err
+	}
+	for _, p := range processes {
+		n, err := p.Name()
+		if err != nil {
+			return err
+		}
+		if n == name {
+			return p.Kill()
+		}
+	}
+	return fmt.Errorf("process not found")
 }
 
 func fileExists(filename string) bool {
@@ -33,7 +52,7 @@ func prereqs() {
 	var EulaPerms string
 	fmt.Scanln(&EulaPerms)
 	fmt.Println(localization.TerminalClear)
-
+	KillProcess("php")
 	switch EulaPerms {
 	case "Y", "y":
 		checkExecutables()
@@ -125,10 +144,12 @@ func localhost() {
 	if err := cmd.Start(); err != nil {
 		log.Fatalf("Failed to start PHP server: %v", err)
 	}
+}
 
-	fmt.Println("PHP server started at http://localhost:8000")
-
-	if err := cmd.Wait(); err != nil {
-		log.Fatalf("PHP server exited with error: %v", err)
-	}
+func capturePage() {
+	fmt.Println(localization.TerminalClear)
+	fmt.Println(localization.Title)
+	fmt.Println(localization.TitleDash)
+	fmt.Println()
+	fmt.Println(localization.LocalhostUrl)
 }

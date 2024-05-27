@@ -36,3 +36,6 @@ var PageChooser = Red + "Choose a site: " + Reset
 
 // Redirectererer
 var RedirectPage = Red + "Redirect Link: " + Reset
+
+// OutputPage
+var LocalhostUrl = Red + "Localhost URL: localhost:8000" + Reset
